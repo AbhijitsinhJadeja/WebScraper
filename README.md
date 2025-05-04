@@ -35,3 +35,33 @@ A .NET Console Application to scrape media content (title, description, genre, s
    git clone [https://github.com/AbhijitsinhJadeja/WebScraper.git]
    
 2. **Set ConnectionString Path in Program.cs**
+
+## Table Structure
+CREATE TABLE Media (
+    MediaId SERIAL PRIMARY KEY,
+    Title VARCHAR(255),
+    Description TEXT,
+    Genre VARCHAR(100)
+);
+
+CREATE TABLE Seasons (
+    SeasonId SERIAL PRIMARY KEY,
+    MediaId INT,
+    SeasonTitle VARCHAR(255),
+    ReleaseDate DATE,
+    FOREIGN KEY (MediaId) REFERENCES Media (MediaId) ON DELETE CASCADE
+);
+
+CREATE TABLE Episodes (
+    EpisodeId SERIAL PRIMARY KEY,
+    SeasonId INT,
+    EpisodeTitle VARCHAR(255),
+    Duration VARCHAR(50),
+    EpisodeNumber INT,
+    ReleaseDate DATE,
+    Description TEXT,
+    FOREIGN KEY (SeasonId) REFERENCES Seasons (SeasonId) ON DELETE CASCADE
+);
+
+
+
